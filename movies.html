@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>XHR XML Example</title>
+	<style>
+		*{
+			font-family:tahoma,verdana,sans-serif;
+		}
+	</style>
+	<script>
+	
+	"use strict";
+	
+	(function(){
+		window.onload = init;
+		
+		function init(){
+			document.querySelector('#mybutton').onclick = loadData;
+		}
+		
+		function loadData(){
+			var xhr = new XMLHttpRequest();
+			var allMovies =[];
+			xhr.onload = function(){
+			    var html = "<h2>Here are some movies!</h2>";
+				var xml = xhr.responseXML;
+				debugger;
+				// 1) Get an array of all the joke elements
+				allMovies = xml.querySelectorAll('movie');
+				
+				// 2) Loop through all the joke elements
+				for(var i = 0; i < allMovies.length; i++)
+				{
+				
+				    // 3) Grab the current joke
+					var movie = allMovies[i];
+					
+					// 4) Get the <question> element of that <joke>
+					// you can also use the .innerHTML property
+					var title = movie.querySelector('title').firstChild.nodeValue;
+					
+					// 5) Get the <answer> element of that <joke>
+					// you can also use the .innerHTML property
+					var actor = movie.querySelector('leadrole').firstChild.nodeValue;
+					
+					// 6) Get the rating attribute of that <joke>
+					var rating = movie.getAttribute('rating');
+					
+					// 7) Do some concatenation
+					html += "<div class = 'movie'>";
+					html += "<h3>" + title + "</h3>";
+					html += "<p><em>" + actor + "</em></p>";
+					html += "<p>Rating = " + rating + "</p>";
+					
+					html += "</div>";
+					
+					// 8) Update the #content div
+					document.querySelector('#content').innerHTML = html;
+				
+				}
+			}
+			
+			var url = "movies-data.xml";
+			xhr.open('GET',url,true);
+			// try to prevent browser caching by sending a header to the server
+			xhr.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2010 00:00:00 GMT");
+			xhr.send();
+		}
+		
+		
+	
+	}())
+	</script>
+</head>
+<body>
+	<h1>Movies!</h1>
+	<p><button id='mybutton'>Let's see my opinion on cinema</button></p>
+	<div id='content'></div>
+	
+</body>
+</html>

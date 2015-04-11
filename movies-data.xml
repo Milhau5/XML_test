@@ -1,0 +1,22 @@
+<movies>
+	<movie rating="5">
+		<title>Citizen Kane</title>
+		<leadrole>Lead Actor: Orson Welles</leadrole>
+	</movie>
+	<movie rating="4">
+		<title>An American in Paris</title>
+		<leadrole>Lead Actor: Gene Kelly</leadrole>
+	</movie>
+	<movie rating="3">
+		<title>Romancing the Stone</title>
+		<leadrole>Lead Actor: Michael Douglas</leadrole>
+	</movie>
+	<movie rating="4.5">
+		<title>Titanic</title>
+		<leadrole>Lead Actor: Leonardo DiCaprio</leadrole>
+	</movie>
+	<movie rating="-1 holy crap was this bad">
+		<title>The Interview</title>
+		<leadrole>Lead Actor: Seth "ayy weed lmao" Rogen</leadrole>
+	</movie>
+</movies>

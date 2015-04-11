@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>XHR XML Example</title>
+	<style>
+		*{
+			font-family:tahoma,verdana,sans-serif;
+		}
+	</style>
+	<script>
+	
+	"use strict";
+	
+	(function(){
+		window.onload = init;
+		
+		function init(){
+			document.querySelector('#mybutton').onclick = loadData;
+		}
+		
+		function loadData(){
+			var xhr = new XMLHttpRequest();
+			var allEvents =[];
+			xhr.onload = function(){
+			    var html = "<h2>Here are the old concerts!</h2>";
+				var xml = xhr.responseXML;
+				debugger;
+				// 1) Get an array of all the joke elements
+				allEvents = xml.querySelectorAll('event');
+				
+				// 2) Loop through all the joke elements
+				for(var i = 0; i < allEvents.length; i++)
+				{
+				
+				    // 3) Grab the current joke
+					var event = allEvents[i];
+					
+					// 4) Get the <question> element of that <joke>
+					// you can also use the .innerHTML property
+					var title = event.querySelector('title').firstChild.nodeValue;
+					
+					// 5) Get the <answer> element of that <joke>
+					// you can also use the .innerHTML property
+					var city = event.querySelector('city').firstChild.nodeValue;
+					
+					// 6) Get the rating attribute of that <joke>
+					var startDate = event.querySelector('startDate').firstChild.nodeValue;
+					
+					//beugh
+					var imageURL = event.querySelectorAll('image');
+					imageURL = imageURL[imageURL.length - 1].firstChild.nodeValue;
+					//var image = event.find('image').text();
+					//var imageURL = event.image[2]["#text"];
+					
+					// 7) Do some concatenation
+					html += "<div class = 'event'>";
+					html += "<h3>" + title + "</h3>";
+					html += "<p>" + city + "--" + startDate + "</p>";
+					html += "<img src='" + imageURL + "' />";
+					//html += "<img src = >" + imageURL + "</img>";
+					
+					html += "</div>";
+					
+					// 8) Update the #content div
+					document.querySelector('#content').innerHTML = html;
+				
+				}
+			}
+			
+			var url = "last-fm-results.xml";
+			xhr.open('GET',url,true);
+			// try to prevent browser caching by sending a header to the server
+			xhr.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2010 00:00:00 GMT");
+			xhr.send();
+		}
+		
+		
+	
+	}())
+	</script>
+</head>
+<body>
+	<h1>Concerts!</h1>
+	<p><button id='mybutton'>Let's see some old concert dates</button></p>
+	<div id='content'></div>
+	
+</body>
+</html>
